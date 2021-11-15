@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <img :src="imgPath" :alt="product.dish" />
+  <div class="product-card">
+    <img :src="fullPath" :alt="product.dish" class="product-image" />
     <div>
-      <p class="price">{{ randomNumber(minPrice, maxPrice) }} &#8381;</p>
-      <p class="favorite"></p>
+      <p class="product-price">
+        {{ randomNumber(minPrice, maxPrice) }} &#8381;
+      </p>
+      <p class="product-favorite"></p>
     </div>
-    <p class="name">{{ product.dish }}</p>
-    <button class="btn">Купить</button>
+    <p class="product-name">{{ product.dish }}</p>
+    <button class="product-btn">Купить</button>
   </div>
 </template>
 
@@ -19,13 +21,11 @@ const FIRST_IMG_NUMBER = 0;
 const LAST_IMG_NUMBER = images.length - 1;
 const MIN_PRICE = 0;
 const MAX_PRICE = 1000;
-const path = "@/assets/images/";
 
 export default {
   name: "Card",
   data() {
     return {
-      path,
       images,
       firstNumber: FIRST_IMG_NUMBER,
       lastNumber: LAST_IMG_NUMBER,
@@ -42,9 +42,12 @@ export default {
   created() {},
   computed: {
     imgPath() {
-      return require(`${this.path}${
+      return `${
         this.images[this.randomNumber(this.firstNumber, this.lastNumber)]
-      }.webp`);
+      }.webp`;
+    },
+    fullPath() {
+      return require("@/assets/images/" + this.imgPath);
     },
   },
   methods: {
@@ -56,4 +59,29 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.product-card {
+}
+
+.product-image {
+  width: 100%;
+}
+
+.product-price {
+  font-size: 20px;
+  font-weight: 700;
+}
+.product-name {
+  font-size: 22px;
+}
+.product-btn {
+  padding: 12px 16px;
+  border: none;
+  background-color: rgba(37, 56, 210, 0.8);
+  color: #ffffff;
+  font-size: 18px;
+}
+.product-btn:hover {
+  background-color: rgba(37, 56, 210, 1);
+}
+</style>

@@ -32,4 +32,21 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.product-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.product-item {
+  width: 300px;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  padding: 20px;
+  border: 1px solid #000000;
+  box-shadow: 4px 4px 11px rgb(0, 0, 25, 50%);
+}
+</style>

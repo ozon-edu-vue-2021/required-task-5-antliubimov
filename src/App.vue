@@ -37,4 +37,24 @@ body,
 * {
   box-sizing: border-box;
 }
+
+#nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#nav a {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #000000;
+}
+#nav a:active,
+#nav a:focus,
+#nav a:hover {
+  color: #2538d2;
+}
 </style>
