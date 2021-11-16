@@ -21,9 +21,7 @@ export default {
   components: {
     Card,
   },
-  created() {
-    this.$store.dispatch("getProducts");
-  },
+
   computed: {
     productsList() {
       return this.$store.state.products;
