@@ -1,6 +1,6 @@
 <template>
   <div :class="['product-card', { 'product-card--cart' : toCart}]">
-    <img :src="product.src" :alt="product.dish" :class="[product-image, { 'product-image--cart' : toCart}]" />
+    <img :src="product.src" :alt="product.dish" :class="['product-image', { 'product-image--cart' : toCart}]" />
     <div class="product-description">
       <p class="product-name">{{ product.dish }}</p>
       <div class="product-desc">
@@ -91,9 +91,12 @@ export default {
   justify-content: space-between;
   height: 100%;
 }
+
+
 .product-card--cart {
   flex-direction: row;
 }
+
 .product-image {
   width: 100%;
 }

@@ -2,12 +2,12 @@
   <div>
     <h2>Корзина</h2>
     <div class="wrapper">
-      <ul v-if="cartList.length" class="cart-list">
-        <li v-for="product in cartList" :key="product.id" class="cart-item">
-          <Card :product="product" :toCart="true"/>
-        </li>
-      </ul>
-      <h3 v-else>Корзина пуста</h3>
+      <List :list="cartList" :toCart="true">
+        <template v-slot:empty>
+          Корзина пуста
+        </template>
+      </List>
+
       <div class="cart-total">
         <h4>Ваш заказ</h4>
         <p>Общая сумма: {{ totalPrice }} &#8381;</p>
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import Card from "@/components/Card";
+import List from "@/components/List";
 
 export default {
   name: "Cart",
   components: {
-    Card,
+    List,
   },
   computed: {
     cartList() {
