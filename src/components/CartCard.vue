@@ -5,7 +5,6 @@
       <p class="product-name">{{ product.dish }}</p>
       <div>
         <p class="product-price">{{ product.price }} &#8381;</p>
-        <p class="product-favorite"></p>
         <div class="product-count">
           <label for="product-count">Количество: </label>
           <input

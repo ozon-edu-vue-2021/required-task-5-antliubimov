@@ -3,6 +3,7 @@ import Router from "vue-router";
 
 import Home from "@/views/Home.vue";
 import Cart from "@/views/Cart.vue";
+import Favorites from "@/views/Favorites";
 
 Vue.use(Router);
 
@@ -16,6 +17,10 @@ export default new Router({
     {
       path: "/cart",
       component: Cart,
+    },
+    {
+      path: "/favorites",
+      component: Favorites,
     },
   ],
 });

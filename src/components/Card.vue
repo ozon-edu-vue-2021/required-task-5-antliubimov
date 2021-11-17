@@ -1,9 +1,18 @@
 <template>
   <div class="product-card">
     <img :src="product.src" :alt="product.dish" class="product-image" />
-    <div>
+    <div class="product-desc">
       <p class="product-price">{{ product.price }} &#8381;</p>
-      <p class="product-favorite"></p>
+      <button
+        v-if="product.favorite"
+        class="product-favorite-btn"
+        @click="favoriteToggle"
+      >
+        ❤️
+      </button>
+      <button v-else class="product-favorite-btn" @click="favoriteToggle">
+        &#128420;
+      </button>
     </div>
     <p class="product-name">{{ product.dish }}</p>
     <div class="product-count">
@@ -53,6 +62,9 @@ export default {
     changeCount(e) {
       this.product.count = +e.target.value;
     },
+    favoriteToggle() {
+      this.$store.commit("favoriteToggle", this.product);
+    },
   },
 };
 </script>
@@ -68,10 +80,20 @@ export default {
 .product-image {
   width: 100%;
 }
+.product-desc {
+  display: flex;
+  justify-content: space-between;
+}
 
 .product-price {
   font-size: 20px;
   font-weight: 700;
+}
+.product-favorite-btn {
+  font-size: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 .product-name {
   font-size: 22px;

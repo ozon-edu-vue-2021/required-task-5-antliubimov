@@ -7,6 +7,9 @@
       <li>
         <router-link to="/cart">Перейти в корзину</router-link>
       </li>
+      <li>
+        <router-link to="/favorites">Перейти в избранное</router-link>
+      </li>
     </ul>
     <router-view />
   </div>

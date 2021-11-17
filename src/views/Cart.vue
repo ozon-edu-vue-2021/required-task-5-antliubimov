@@ -3,7 +3,7 @@
     <h2>Корзина</h2>
     <div class="wrapper">
       <ul v-if="cartList.length" class="cart-list">
-        <li v-for="product in cartList" :key="product.uid" class="cart-item">
+        <li v-for="product in cartList" :key="product.id" class="cart-item">
           <CartCard :product="product" />
         </li>
       </ul>
