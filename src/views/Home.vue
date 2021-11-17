@@ -4,7 +4,7 @@
     <ul class="product-list">
       <li
         v-for="product in productsList"
-        :key="product.uid"
+        :key="product.id"
         class="product-item"
       >
         <Card :product="product" />
@@ -17,7 +17,7 @@
 import Card from "@/components/Card";
 
 export default {
-  name: "Home.vue",
+  name: "Home",
   components: {
     Card,
   },
@@ -41,6 +41,7 @@ export default {
 }
 .product-item {
   width: 300px;
+  height: 545px;
   box-sizing: border-box;
   margin-bottom: 30px;
   padding: 20px;

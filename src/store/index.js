@@ -15,20 +15,45 @@ export default new Vuex.Store({
     products: [],
     order: [],
   },
-  getters: {},
+  getters: {
+    totalPrice: (state) => {
+      return state.order.reduce(
+        (acc, item) => acc + item.price * item.count,
+        0
+      );
+    },
+    totalAmount: (state) => {
+      return state.order.reduce((acc, item) => acc + item.count, 0);
+    },
+  },
   mutations: {
-    set_url(state, args) {
+    set_url: (state, args) => {
       let index = args.index;
       let imgURL = args.imgURL;
       let price = args.price;
       Vue.set(state.products[index], "src", imgURL);
       Vue.set(state.products[index], "price", price);
+      Vue.set(state.products[index], "count", 1);
     },
-    setProducts(state, payload) {
+    setProducts: (state, payload) => {
       state.products = payload;
     },
-    addToCart(state, payload) {
+    addToCart: (state, payload) => {
       state.order.push(payload);
+    },
+    deleteProduct: (state, payload) => {
+      state.order.forEach((elem, index) => {
+        if (elem.id === payload.id) {
+          state.order.splice(index, 1);
+        }
+      });
+    },
+    changeCount: (state, payload) => {
+      state.order.forEach((elem) => {
+        if (elem.id === payload.id) {
+          elem.count = payload.count;
+        }
+      });
     },
   },
   actions: {

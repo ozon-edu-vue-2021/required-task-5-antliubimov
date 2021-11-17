@@ -6,31 +6,52 @@
       <p class="product-favorite"></p>
     </div>
     <p class="product-name">{{ product.dish }}</p>
-    <button v-if="isInCart" class="product-btn" disabled>В корзине</button>
-    <button v-else class="product-btn" @click="addToCart">В корзину</button>
+    <div class="product-count">
+      <label for="product-count">Количество: </label>
+      <input
+        type="number"
+        id="product-count"
+        min="1"
+        max="100"
+        :value="product.count"
+        @change="changeCount"
+      />
+    </div>
+    <button
+      @click="$router.push('cart')"
+      v-if="isInCart"
+      class="btn product-btn-incart"
+    >
+      В корзине
+    </button>
+    <button v-else class="btn product-btn" @click="addToCart">В корзину</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "Card",
-  data() {
-    return {
-      isInCart: false,
-    };
-  },
   props: {
     product: {
       type: Object,
       default: () => {},
     },
   },
-  created() {},
-  computed: {},
+  computed: {
+    isInCart() {
+      return this.$store.state.order.find((elem) => {
+        if (elem.id === this.product.id) {
+          return true;
+        }
+      });
+    },
+  },
   methods: {
     addToCart() {
       this.$store.commit("addToCart", this.product);
-      this.isInCart = true;
+    },
+    changeCount(e) {
+      this.product.count = +e.target.value;
     },
   },
 };
@@ -41,6 +62,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 100%;
 }
 
 .product-image {
@@ -54,14 +76,23 @@ export default {
 .product-name {
   font-size: 22px;
 }
-.product-btn {
+.product-count {
+  margin-bottom: 20px;
+}
+.btn {
   padding: 12px 16px;
   border: none;
-  background-color: rgba(37, 56, 210, 0.8);
   color: #ffffff;
   font-size: 18px;
 }
+.product-btn {
+  background-color: rgba(37, 56, 210, 0.8);
+}
 .product-btn:hover:enabled {
   background-color: rgba(37, 56, 210, 1);
+}
+
+.product-btn-incart {
+  background-color: rgb(37, 210, 98);
 }
 </style>
