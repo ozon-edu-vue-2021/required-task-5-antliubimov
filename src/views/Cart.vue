@@ -4,7 +4,7 @@
     <div class="wrapper">
       <ul v-if="cartList.length" class="cart-list">
         <li v-for="product in cartList" :key="product.id" class="cart-item">
-          <CartCard :product="product" />
+          <Card :product="product" :toCart="true"/>
         </li>
       </ul>
       <h3 v-else>Корзина пуста</h3>
@@ -19,12 +19,12 @@
 </template>
 
 <script>
-import CartCard from "@/components/CartCard";
+import Card from "@/components/Card";
 
 export default {
   name: "Cart",
   components: {
-    CartCard,
+    Card,
   },
   computed: {
     cartList() {

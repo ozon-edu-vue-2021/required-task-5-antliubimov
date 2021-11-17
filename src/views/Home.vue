@@ -7,7 +7,7 @@
         :key="product.id"
         class="product-item"
       >
-        <Card :product="product" />
+        <Card :product="product" :inCart="false"/>
       </li>
     </ul>
   </div>
@@ -21,7 +21,6 @@ export default {
   components: {
     Card,
   },
-
   computed: {
     productsList() {
       return this.$store.state.products;
