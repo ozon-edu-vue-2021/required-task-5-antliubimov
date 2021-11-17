@@ -3,19 +3,29 @@
     <img :src="product.src" :alt="product.dish" class="product-image" />
     <div class="product-description">
       <p class="product-name">{{ product.dish }}</p>
-      <div>
+      <div class="product-desc">
         <p class="product-price">{{ product.price }} &#8381;</p>
-        <div class="product-count">
-          <label for="product-count">Количество: </label>
-          <input
-            type="number"
-            id="product-count"
-            min="1"
-            max="100"
-            :value="product.count"
-            @change="changeCount"
-          />
-        </div>
+        <button
+          v-if="product.favorite"
+          class="product-favorite-btn"
+          @click="favoriteToggle"
+        >
+          ❤️
+        </button>
+        <button v-else class="product-favorite-btn" @click="favoriteToggle">
+          &#128420;
+        </button>
+      </div>
+      <div class="product-count">
+        <label for="product-count">Количество: </label>
+        <input
+          type="number"
+          id="product-count"
+          min="1"
+          max="100"
+          :value="product.count"
+          @change="changeCount"
+        />
       </div>
       <button class="btn product-btn" @click="deleteProduct">Удалить</button>
     </div>
@@ -38,6 +48,9 @@ export default {
     changeCount(e) {
       this.product.count = +e.target.value;
     },
+    favoriteToggle() {
+      this.$store.commit("favoriteToggle", this.product);
+    },
   },
 };
 </script>
@@ -55,15 +68,26 @@ export default {
 .product-description {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .product-name {
   margin: 10px 0;
   font-size: 24px;
   font-weight: 700;
 }
+.product-desc {
+  display: flex;
+  justify-content: space-between;
+}
 .product-price {
   font-size: 20px;
   font-weight: 600;
+}
+.product-favorite-btn {
+  font-size: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 .product-count {
   margin-bottom: 20px;
