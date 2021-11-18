@@ -30,7 +30,7 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    set_url: (state, args) => {
+    addProps: (state, args) => {
       let index = args.index;
       let imgURL = args.imgURL;
       let price = args.price;
@@ -42,12 +42,12 @@ export default new Vuex.Store({
     setProducts: (state, payload) => {
       state.products = payload;
     },
-    addToCart: (state, payload) => {
-      state.order.push(payload);
+    addToCart: (state, { product }) => {
+      state.order.push(product);
     },
-    deleteProduct: (state, payload) => {
+    deleteProduct: (state, { product }) => {
       state.order.forEach((elem, index) => {
-        if (elem.id === payload.id) {
+        if (elem.id === product.id) {
           state.order.splice(index, 1);
         }
       });
@@ -61,7 +61,7 @@ export default new Vuex.Store({
     },
     favoriteToggle: (state, payload) => {
       state.products.map((product) => {
-        if (product.id === payload.id) {
+        if (product.id === payload.product.id) {
           product.favorite = !product.favorite;
         }
       });
@@ -75,7 +75,7 @@ export default new Vuex.Store({
 
         let arrProducts = this.state.products;
         arrProducts.forEach((element, index) => {
-          commit("set_url", {
+          commit("addProps", {
             index: index,
             imgURL: utils.fullPath(images),
             price: utils.randomNumber(utils.MIN_PRICE, utils.MAX_PRICE),
@@ -84,6 +84,15 @@ export default new Vuex.Store({
       } catch (error) {
         console.log(error);
       }
+    },
+    addToCartBy({ commit }, product) {
+      commit("addToCart", product);
+    },
+    favoriteToggleBy({ commit }, product) {
+      commit("favoriteToggle", product);
+    },
+    deleteProductBy({ commit }, product) {
+      commit("deleteProduct", product);
     },
   },
 });

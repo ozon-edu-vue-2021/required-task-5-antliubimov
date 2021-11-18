@@ -1,14 +1,18 @@
 <template>
-  <div :class="['product-card', { 'product-card--cart' : toCart}]">
-    <img :src="product.src" :alt="product.dish" :class="['product-image', { 'product-image--cart' : toCart}]" />
+  <div :class="['product-card', { 'product-card--cart': toCart }]">
+    <img
+      :src="product.src"
+      :alt="product.dish"
+      :class="['product-image', { 'product-image--cart': toCart }]"
+    />
     <div class="product-description">
       <p class="product-name">{{ product.dish }}</p>
       <div class="product-desc">
         <p class="product-price">{{ product.price }} &#8381;</p>
         <button
-            v-if="product.favorite"
-            class="product-favorite-btn"
-            @click="favoriteToggle"
+          v-if="product.favorite"
+          class="product-favorite-btn"
+          @click="favoriteToggle"
         >
           ❤️
         </button>
@@ -19,12 +23,12 @@
       <div class="product-count">
         <label for="product-count">Количество: </label>
         <input
-            type="number"
-            id="product-count"
-            min="1"
-            max="100"
-            :value="product.count"
-            @change="changeCount"
+          type="number"
+          id="product-count"
+          min="1"
+          max="100"
+          :value="product.count"
+          @change="changeCount"
         />
       </div>
       <div v-if="toCart">
@@ -32,13 +36,15 @@
       </div>
       <div v-else>
         <button
-            @click="$router.push('cart')"
-            v-if="isInCart"
-            class="btn product-btn-incart"
+          @click="$router.push('cart')"
+          v-if="isInCart"
+          class="btn product-btn-incart"
         >
           В корзине
         </button>
-        <button v-else class="btn product-btn" @click="addToCart">В корзину</button>
+        <button v-else class="btn product-btn" @click="addToCart">
+          В корзину
+        </button>
       </div>
     </div>
   </div>
@@ -54,8 +60,8 @@ export default {
     },
     toCart: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     isInCart() {
@@ -65,20 +71,25 @@ export default {
         }
       });
     },
-
   },
   methods: {
     addToCart() {
-      this.$store.commit("addToCart", this.product);
+      this.$store.dispatch("addToCartBy", {
+        product: this.product,
+      });
     },
     deleteProduct() {
-      this.$store.commit("deleteProduct", this.product);
+      this.$store.dispatch("deleteProductBy", {
+        product: this.product,
+      });
     },
     changeCount(e) {
       this.product.count = +e.target.value;
     },
     favoriteToggle() {
-      this.$store.commit("favoriteToggle", this.product);
+      this.$store.dispatch("favoriteToggleBy", {
+        product: this.product,
+      });
     },
   },
 };
@@ -92,7 +103,6 @@ export default {
   height: 100%;
 }
 
-
 .product-card--cart {
   flex-direction: row;
 }
@@ -100,12 +110,14 @@ export default {
 .product-image {
   width: 100%;
 }
+
 .product-image--cart {
   width: 150px;
   height: auto;
   object-fit: contain;
   margin-right: 20px;
 }
+
 .product-description {
   display: flex;
   flex-direction: column;
@@ -121,20 +133,24 @@ export default {
   font-size: 20px;
   font-weight: 700;
 }
+
 .product-favorite-btn {
   font-size: 24px;
   border: none;
   background: none;
   cursor: pointer;
 }
+
 .product-name {
   margin: 10px 0;
   font-size: 22px;
   font-weight: 700;
 }
+
 .product-count {
   margin-bottom: 20px;
 }
+
 .btn {
   width: 100%;
   padding: 12px 16px;
@@ -143,9 +159,11 @@ export default {
   font-size: 18px;
   background-color: rgba(123, 124, 130, 0.8);
 }
+
 .product-btn {
   background-color: rgba(37, 56, 210, 0.8);
 }
+
 .product-btn:hover:enabled {
   background-color: rgba(37, 56, 210, 1);
 }

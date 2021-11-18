@@ -2,9 +2,7 @@
   <div>
     <h2>Товары</h2>
     <List :list="productsList" :toCart="false">
-      <template v-slot:empty>
-        Товаров нет:(
-      </template>
+      <template v-slot:empty>Товаров нет:(</template>
     </List>
   </div>
 </template>

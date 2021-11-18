@@ -2,9 +2,7 @@
   <div>
     <h2>Избранное</h2>
     <List :list="favoritesList" :toCart="false">
-      <template v-slot:empty>
-        В избранном ничего нет:(
-      </template>
+      <template v-slot:empty>В избранном ничего нет:(</template>
     </List>
   </div>
 </template>
@@ -15,7 +13,7 @@ import List from "@/components/List";
 export default {
   name: "Favorites",
   components: {
-    List
+    List,
   },
   computed: {
     favoritesList() {
