@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Товары</h2>
-    <List :list="productsList" :toCart="false">
+    <List :list="products" :toCart="false">
       <template v-slot:empty>Товаров нет:(</template>
     </List>
   </div>
@@ -9,6 +9,7 @@
 
 <script>
 import List from "@/components/List";
+import { mapState } from "vuex";
 
 export default {
   name: "Home",
@@ -16,9 +17,7 @@ export default {
     List,
   },
   computed: {
-    productsList() {
-      return this.$store.state.products;
-    },
+    ...mapState(["products"]),
   },
 };
 </script>

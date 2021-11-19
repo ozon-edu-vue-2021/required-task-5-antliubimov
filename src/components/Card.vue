@@ -12,11 +12,15 @@
         <button
           v-if="product.favorite"
           class="product-favorite-btn"
-          @click="favoriteToggle"
+          @click="favoriteToggleBy(product)"
         >
           ❤️
         </button>
-        <button v-else class="product-favorite-btn" @click="favoriteToggle">
+        <button
+          v-else
+          class="product-favorite-btn"
+          @click="favoriteToggleBy(product)"
+        >
           &#128420;
         </button>
       </div>
@@ -32,7 +36,9 @@
         />
       </div>
       <div v-if="toCart">
-        <button class="btn product-btn" @click="deleteProduct">Удалить</button>
+        <button class="btn product-btn" @click="deleteProductBy(product)">
+          Удалить
+        </button>
       </div>
       <div v-else>
         <button
@@ -42,7 +48,7 @@
         >
           В корзине
         </button>
-        <button v-else class="btn product-btn" @click="addToCart">
+        <button v-else class="btn product-btn" @click="addToCartBy(product)">
           В корзину
         </button>
       </div>
@@ -51,6 +57,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "Card",
   props: {
@@ -73,23 +81,9 @@ export default {
     },
   },
   methods: {
-    addToCart() {
-      this.$store.dispatch("addToCartBy", {
-        product: this.product,
-      });
-    },
-    deleteProduct() {
-      this.$store.dispatch("deleteProductBy", {
-        product: this.product,
-      });
-    },
+    ...mapActions(["addToCartBy", "deleteProductBy", "favoriteToggleBy"]),
     changeCount(e) {
       this.product.count = +e.target.value;
-    },
-    favoriteToggle() {
-      this.$store.dispatch("favoriteToggleBy", {
-        product: this.product,
-      });
     },
   },
 };

@@ -2,10 +2,8 @@
   <div>
     <h2>Корзина</h2>
     <div class="wrapper">
-      <List :list="cartList" :toCart="true">
-        <template v-slot:empty>
-          Корзина пуста
-        </template>
+      <List :list="order" :toCart="true">
+        <template v-slot:empty> Корзина пуста</template>
       </List>
 
       <div class="cart-total">
@@ -20,6 +18,7 @@
 
 <script>
 import List from "@/components/List";
+import { mapState, mapGetters } from "vuex";
 
 export default {
   name: "Cart",
@@ -27,19 +26,12 @@ export default {
     List,
   },
   computed: {
-    cartList() {
-      return this.$store.state.order;
-    },
-    totalAmount() {
-      return this.$store.getters.totalAmount;
-    },
-    totalPrice() {
-      return this.$store.getters.totalPrice;
-    },
+    ...mapState(["order"]),
+    ...mapGetters(["totalAmount", "totalPrice"]),
   },
   methods: {
     buyProducts() {
-      const text = this.cartList
+      const text = this.order
         .map(
           (elem) =>
             `Наименование: ${elem.dish}, Количество: ${elem.count}, Цена на шт. ${elem.price}`
@@ -63,6 +55,7 @@ export default {
   grid-gap: 20px;
   width: 900px;
 }
+
 .cart-total {
   display: flex;
   flex-direction: column;
@@ -70,6 +63,7 @@ export default {
   padding: 20px;
   background-color: #bbbfc9;
 }
+
 .cart-list {
   display: flex;
   justify-content: space-around;
@@ -78,6 +72,7 @@ export default {
   padding: 0;
   list-style: none;
 }
+
 .cart-item {
   width: 100%;
   height: 250px;
@@ -87,6 +82,7 @@ export default {
   border: 1px solid #000000;
   box-shadow: 4px 4px 11px rgba(0, 0, 25, 0.5);
 }
+
 .btn {
   padding: 12px 16px;
   border: none;
@@ -94,6 +90,7 @@ export default {
   font-size: 18px;
   background-color: rgba(37, 56, 210, 0.8);
 }
+
 .btn:hover:enabled {
   background-color: rgba(37, 56, 210, 1);
 }

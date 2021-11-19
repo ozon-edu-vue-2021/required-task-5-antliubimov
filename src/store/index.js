@@ -16,6 +16,12 @@ export default new Vuex.Store({
     order: [],
   },
   getters: {
+    productsList: (state) => {
+      return state.products;
+    },
+    cartList: (state) => {
+      return state.order;
+    },
     totalPrice: (state) => {
       return state.order.reduce(
         (acc, item) => acc + item.price * item.count,
@@ -26,14 +32,13 @@ export default new Vuex.Store({
       return state.order.reduce((acc, item) => acc + item.count, 0);
     },
     favoritesList: (state) => {
-      return state.products.filter((elem) => elem.favorite === true);
+      return state.products.filter((elem) => elem.favorite);
     },
   },
   mutations: {
     addProps: (state, args) => {
-      let index = args.index;
-      let imgURL = args.imgURL;
-      let price = args.price;
+      let { index, imgURL, price } = args;
+
       Vue.set(state.products[index], "src", imgURL);
       Vue.set(state.products[index], "price", price);
       Vue.set(state.products[index], "count", 1);
@@ -42,12 +47,12 @@ export default new Vuex.Store({
     setProducts: (state, payload) => {
       state.products = payload;
     },
-    addToCart: (state, { product }) => {
-      state.order.push(product);
+    addToCart: (state, payload) => {
+      state.order.push(payload);
     },
-    deleteProduct: (state, { product }) => {
+    deleteProduct: (state, payload) => {
       state.order.forEach((elem, index) => {
-        if (elem.id === product.id) {
+        if (elem.id === payload.id) {
           state.order.splice(index, 1);
         }
       });
@@ -60,9 +65,9 @@ export default new Vuex.Store({
       });
     },
     favoriteToggle: (state, payload) => {
-      state.products.map((product) => {
-        if (product.id === payload.product.id) {
-          product.favorite = !product.favorite;
+      state.products.forEach((elem) => {
+        if (elem.id === payload.id) {
+          elem.favorite = !elem.favorite;
         }
       });
     },

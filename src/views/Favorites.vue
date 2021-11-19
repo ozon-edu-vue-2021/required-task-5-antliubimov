@@ -9,6 +9,7 @@
 
 <script>
 import List from "@/components/List";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Favorites",
@@ -16,9 +17,7 @@ export default {
     List,
   },
   computed: {
-    favoritesList() {
-      return this.$store.getters.favoritesList;
-    },
+    ...mapGetters(["favoritesList"]),
   },
 };
 </script>
