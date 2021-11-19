@@ -81,9 +81,15 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["addToCartBy", "deleteProductBy", "favoriteToggleBy"]),
+    ...mapActions([
+      "addToCartBy",
+      "deleteProductBy",
+      "favoriteToggleBy",
+      "changeCountBy",
+    ]),
     changeCount(e) {
       this.product.count = +e.target.value;
+      this.changeCountBy(this.product);
     },
   },
 };

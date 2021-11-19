@@ -99,5 +99,8 @@ export default new Vuex.Store({
     deleteProductBy({ commit }, product) {
       commit("deleteProduct", product);
     },
+    changeCountBy({ commit }, product) {
+      commit("changeCount", product);
+    },
   },
 });
